@@ -1,6 +1,12 @@
 package dbConfig
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/joho/godotenv"
+)
 
 type Article struct {
 	ID    int
@@ -8,30 +14,37 @@ type Article struct {
 	Body  []byte
 }
 
-// const PostgresDriver = "postgres"
-// const Usert = "teste"
-// const Host = "localhost"
-// const Port = "5432"
-// const Password = "teste"
-
-// var DataSourceName = "postgres://teste:teste@localhost:5432/postgres?sslmode=disable"
-
-const (
-	PostgresDriver = "postgres"
-	Usert          = "teste"
-	Host           = "localhost"
-	Port           = "5432"
-	Password       = "teste"
-	Database       = "postgres"
+var (
+	PostgresDriver string
+	Usert          string
+	Host           string
+	Port           string
+	Password       string
+	Database       string
 	SslMode        = "disable"
+	DataSourceName string
 )
 
-var DataSourceName = fmt.Sprintf(
-	"postgres://%s:%s@%s:%s/%s?sslmode=%s",
-	Usert,
-	Password,
-	Host,
-	Port,
-	Database,
-	SslMode,
-)
+func InitDriver() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	PostgresDriver = os.Getenv("POSTGRES_DRIVER")
+	Usert = os.Getenv("USER")
+	Host = os.Getenv("HOST")
+	Port = os.Getenv("PORT")
+	Password = os.Getenv("PASSWORD")
+	Database = os.Getenv("DATABASE")
+
+	DataSourceName = fmt.Sprintf(
+		"postgres://%s:%s@%s:%s/%s?sslmode=%s",
+		Usert,
+		Password,
+		Host,
+		Port,
+		Database,
+		SslMode,
+	)
+}

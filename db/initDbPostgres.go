@@ -24,6 +24,7 @@ type User struct {
 }
 
 func InitDbPostgres() {
+	InitDriver()
 	Db, err = sql.Open(PostgresDriver, DataSourceName)
 
 	if err != nil {
