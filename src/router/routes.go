@@ -1,7 +1,7 @@
 package router
 
 import (
-	handler "github.com/Mpetrato/startupconnect/handlers"
+	handler "github.com/Mpetrato/startupconnect/src/handlers"
 	"github.com/gin-gonic/gin"
 )
 

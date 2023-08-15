@@ -8,11 +8,30 @@ type Article struct {
 	Body  []byte
 }
 
-const PostgresDriver = "postgres"
-const User = "teste"
-const Host = "172.17.0.2" // Use o endereço IP do contêiner PostgreSQL
-const Port = "5432"
-const Password = "teste"
+// const PostgresDriver = "postgres"
+// const Usert = "teste"
+// const Host = "localhost"
+// const Port = "5432"
+// const Password = "teste"
 
-var DataSourceName = fmt.Sprintf("host=%s port=%s user=%s "+
-	"password=%s sslmode=disable", Host, Port, User, Password)
+// var DataSourceName = "postgres://teste:teste@localhost:5432/postgres?sslmode=disable"
+
+const (
+	PostgresDriver = "postgres"
+	Usert          = "teste"
+	Host           = "localhost"
+	Port           = "5432"
+	Password       = "teste"
+	Database       = "postgres"
+	SslMode        = "disable"
+)
+
+var DataSourceName = fmt.Sprintf(
+	"postgres://%s:%s@%s:%s/%s?sslmode=%s",
+	Usert,
+	Password,
+	Host,
+	Port,
+	Database,
+	SslMode,
+)
